@@ -2,8 +2,10 @@
 // import * as Font from "expo-font";
 // import { AppLoading } from "expo";
 // import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -23,17 +25,6 @@ const initialState = {
   password: "",
 };
 
-// const loadApplication = async () => {
-//   await Font.loadAsync({
-//     "KleeOne-Regular": require("./fonts/KleeOne-Regular"),
-//   });
-// };
-// const loadApplication = async () => {
-//   await Font.loadAsync({
-//     "KleeOne-Regular": require("./assets/fonts/KleeOne-Regular.ttf"),
-//   });
-// };
-
 export default function App() {
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
   const [isFontsReady, setIsFontsReady] = useState(false);
@@ -47,6 +38,12 @@ export default function App() {
   //   Alert.alert("Credentials", `${name} + ${password}`);
   // };
 
+  const [fontsLoaded] = useFonts({
+    "KleeOne-Regular": require("./assets/fonts/KleeOne-Regular.ttf"),
+    Oswald: require("./assets/fonts/Oswald.ttf"),
+    "Mynerve-Regular": require("./assets/fonts/Mynerve-Regular.ttf"),
+  });
+
   const keyboardHide = () => {
     setIsKeyboardShow(false);
     Keyboard.dismiss();
@@ -58,19 +55,19 @@ export default function App() {
     setPassword("");
   };
 
-  // if (!isFontsReady) {
-  //   return (
-  //     <AppLoading
-  //       startAsync={loadApplication}
-  //       onFinish={() => setIsFontsReady(true)}
-  //       onError={console.warn}
-  //     />
-  //   );
-  // }
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View style={styles.container}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
         <ImageBackground
           source={require("./assets/images/background.jpg")}
           style={styles.image}
@@ -143,22 +140,25 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
     fontSize: 24,
-    // fontFamily: "KleeOne-Regular",
+    fontFamily: "KleeOne-Regular",
   },
   input: {
-    width: 200,
+    width: 300,
     height: 44,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 5,
     marginBottom: 10,
+    fontFamily: "Oswald",
+    marginBottom: 20,
   },
   btn: {
     alignItems: "center",
     padding: 7,
     marginHorizontal: 30,
     borderRadius: 5,
+    marginTop: 30,
 
     ...Platform.select({
       ios: {
@@ -173,5 +173,7 @@ const styles = StyleSheet.create({
   },
   btnTitle: {
     color: "#fff",
+    fontFamily: "Mynerve-Regular",
+    fontSize: 28,
   },
 });
