@@ -1,6 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import * as Font from "expo-font";
-import { AppLoading } from "expo";
+// import { StatusBar } from "expo-status-bar";
+// import * as Font from "expo-font";
+// import { AppLoading } from "expo";
 // import AppLoading from "expo-app-loading";
 
 import React, { useState } from "react";
@@ -28,11 +28,11 @@ const initialState = {
 //     "KleeOne-Regular": require("./fonts/KleeOne-Regular"),
 //   });
 // };
-const loadApplication = async () => {
-  await Font.loadAsync({
-    "DMMono-Regular": require("./fonts/DMMono-Regular.ttf"),
-  });
-};
+// const loadApplication = async () => {
+//   await Font.loadAsync({
+//     "KleeOne-Regular": require("./assets/fonts/KleeOne-Regular.ttf"),
+//   });
+// };
 
 export default function App() {
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
@@ -58,21 +58,21 @@ export default function App() {
     setPassword("");
   };
 
-  if (!isFontsReady) {
-    return (
-      <AppLoading
-        startAsync={loadApplication}
-        onFinish={() => setIsFontsReady(true)}
-        onError={console.warn}
-      />
-    );
-  }
+  // if (!isFontsReady) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={loadApplication}
+  //       onFinish={() => setIsFontsReady(true)}
+  //       onError={console.warn}
+  //     />
+  //   );
+  // }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("./images/background.jpg")}
+          source={require("./assets/images/background.jpg")}
           style={styles.image}
         >
           <KeyboardAvoidingView
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
     fontSize: 24,
-    fontFamily: "DMMono-Regular",
+    // fontFamily: "KleeOne-Regular",
   },
   input: {
     width: 200,

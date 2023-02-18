@@ -30,7 +30,7 @@ const initialState = {
 // };
 const loadApplication = async () => {
   await Font.loadAsync({
-    "DMMono-Regular": require("./fonts/DMMono-Regular.ttf"),
+    "KleeOne-Regular": require("./assets/fonts/KleeOne-Regular.ttf"),
   });
 };
 
@@ -72,7 +72,7 @@ export default function App() {
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("./images/background.jpg")}
+          source={require("./assets/images/background.jpg")}
           style={styles.image}
         >
           <KeyboardAvoidingView
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
     fontSize: 24,
-    fontFamily: "DMMono-Regular",
+    fontFamily: "KleeOne-Regular",
   },
   input: {
     width: 200,
